@@ -1,0 +1,7 @@
+Il y a un tableau avec des étiquettes (des entiers)
+
+On compte le nombre d'étiquettes
+
+On fait une matrice avec id etiquette => nombre
+
+On parcourt

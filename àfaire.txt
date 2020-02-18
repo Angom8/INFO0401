@@ -1,0 +1,13 @@
+à faire : 
+creer pile
+empiler element
+depiler
+sommet du pile
+tester une pile si vide
+vider une pile
+
+chaque algo :
+son utilisation
+son algo (code algo + c)
+exemple d'exec + resultats
+complexité
