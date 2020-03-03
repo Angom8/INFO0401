@@ -14,12 +14,12 @@ typedef struct Liste Liste;
 struct Liste
 {
     Cell *first;
-    Cell *last
+    Cell *last;
     int size;
 
 };
 
-/*Initialisation d'une pile 
+/*Initialisation d'une list
 **La liste ne contient aucune case
 **La taille est de 0
 */
@@ -40,12 +40,12 @@ Cell* chercherElementListe(Liste *l, int n){
 	Cell* c = l->first;
 
 	if(c != NULL){
-		if(j>size){
+		if(j>l->size){
 			return l->last;
 		}
 		else {
 			if(j<0){
-				j = (size-n)%size;
+				j = (l->size-n)%l->size;
 			}
 			while(i < j){
 				c = c->nxt;
@@ -69,7 +69,7 @@ void ajouterDernierElementListe(Liste *l, int val){
     	if (l == NULL || new_c == NULL){
   	}
 	else{
-		if(p->first != NULL){/*Ajout d'un élément de la pile standard*/
+		if(l->first != NULL){/*Ajout d'un élément de la pile standard*/
 
 			//On définit la nouvelle case
 		    	new_c->value = val;
@@ -108,9 +108,9 @@ void ajouterElementListe(Liste *l, int val, int n){
     	if (l == NULL || new_c == NULL){
   	}
 	else{
-		if(p->first != NULL){/*Ajout d'un élément de la liste standard*/
+		if(l->first != NULL){/*Ajout d'un élément de la liste standard*/
 
-			if(n<size && n>0){
+			if(n<l->size && n>0){
 				//On définit la nouvelle case
 			    	new_c->value = val;
 			    	new_c->nxt = chercherElementListe(l, n+1);
@@ -123,12 +123,12 @@ void ajouterElementListe(Liste *l, int val, int n){
 				l->size++;
 			}
 			else{
-				if(n>=size){
+				if(n>=l->size){
 					ajouterDernierElementListe(l, val);
 				}
 				else{
-					j = (size-n)%size;
-					ajouterElementListe(j);
+					j = (l->size-n)%l->size;
+					ajouterElementListe(l,val, j);
 				}
 			}
 			
@@ -152,13 +152,13 @@ void supprimerDernierElementListe(Liste *l){
 
 	if (l != NULL){
 		if(l->size > 1){
-			elem = chercherElementListe(l, size-1); //Retourne l'avant-dernière case
+			elem = chercherElementListe(l, l->size-2); //Retourne l'avant-dernière case
 			printf("--%d\n", l->last->value);
 
 			elem->nxt = NULL;//Suppression du dernier élément
 			free(l->last);
 
-			size--;//Réduction de la taille
+			l->size--;//Réduction de la taille
 
 			l->last = elem;//Redéfinition de la dernière case
 		}
@@ -167,7 +167,7 @@ void supprimerDernierElementListe(Liste *l){
 			printf("--%d\n", elem->value);
 			l->first = NULL;
 			l->last = NULL;
-			l->size = 0
+			l->size = 0;
 			free(elem);
 		}
 	}
@@ -184,35 +184,46 @@ void supprimerElementListe(Liste *l, int n){
 
 	if (l != NULL){
 		if(l->size > 1){
-			if(n<size & n > 0){
+			if(n<l->size & n > 0){
 				elem1 = chercherElementListe(l, n); //Retourne l'élément n
 				elem2 = chercherElementListe(l, n-1); //Retourne l'élément n-1
-				elem2 = chercherElementListe(l, n+1); //Retourne l'élément n-1
+				elem3 = elem1->nxt; //Retourne l'élément n+1
 				printf("--%d\n", elem1->value);
 
-				elem2->nxt = elem3; //On saut l'élement n à supprimer
+				elem2->nxt = elem3; //On saute l'élement n à supprimer
 
-				size--;//Réduction de la taille
+				l->size--;//Réduction de la taille
 
 				free(elem1);
 			}
 			else{
-				if(n>=size){
+				if(n>=l->size){
 					supprimerDernierElementListe(l);
 				}
 				else{
-					j = (size-n)%size;
-					supprimerElementListe(j);
+					if(n == 0){
+						elem1 = chercherElementListe(l, 0); //Retourne l'élément n
+						elem2 = elem1->nxt; //Retourne l'élément n+1
+						printf("--%d\n", elem1->value);
+						l->first= elem2;
+						l->size--;//Réduction de la taille
+
+						free(elem1);
+					}
+					else{
+						j = (l->size-n)%l->size;
+						supprimerElementListe(l, j);
+					}
 				}
 			}
 		}
 		else{//La liste ne contient qu'une seule case : on la supprime donc
-			elem = l->first; //Retourne la seule et unique case
-			printf("--%d\n", elem->value);
+			elem1 = l->first; //Retourne la seule et unique case
+			printf("--%d\n", elem1->value);
 			l->first = NULL;
 			l->last = NULL;
-			l->size = 0
-			free(elem);
+			l->size = 0;
+			free(elem1);
 		}
 	}
 	
@@ -220,17 +231,21 @@ void supprimerElementListe(Liste *l, int n){
 
 /*On retire la cell contenant la valeur v de notre liste. Retourne 1 si réussite. Retourne 0 si échec*/
 int supprimerValeurListe(Liste *l, int v){
-
+	
+	
 	Cell *elem = l->first; 
+
 	int i = 0;
 	int retour = 0;
-
+	
+	
 	while(elem != NULL && elem->value != v){
 		elem = elem->nxt;
 		i++;
+		
 	}
 	
-	if(i<=size){
+	if(i<l->size){
 		supprimerElementListe(l, i);
 		retour = 1;
 	}
@@ -238,163 +253,131 @@ int supprimerValeurListe(Liste *l, int v){
 }
 
 
-/*Affiche le contenu de la liste
-*/
+/*Affiche le contenu de la liste*/
 void afficherListe(Liste *l){
 
-	Pile *ptmp = creerPile();
+	printf("La liste : ");
 
-	printf("La pile : ");
+	Cell* elem = l->first;
 
-	while (p != NULL && p->first != NULL){
-		printf("%d ", sommet(p));
-		empilerPile(ptmp, sommet(p));
-		depilerPile(p);
+	while(elem != NULL){
+		printf("%d ", elem->value);
+		elem = elem->nxt;
 	}
-
-
-	/*On repile la pile*/
-	while (ptmp != NULL && ptmp->first != NULL){
-		empilerPile(p, sommet(ptmp));
-		depilerPile(ptmp);
-	}
-	printf(" - FIN\n");
-
-	free(ptmp);
+	
+	printf("Taille : %d - FIN\n", l->size);
 	
 }
 
-/*Retourne la valeur du sommet de la pile*/
-int sommet(Pile *p){
-
-	Cell *elem = p->first;
-
-	return elem->value;
-	
-}
-
-/*Retour 0 ou 1 selon si la pile est vide ou non*/
-int pileEstVide(Pile *p){
+/*Retour 0 ou 1 selon si la liste est vide ou non*/
+int listeEstVide(Liste *l){
 	int i = 1;
-	if(p != NULL && p->first != NULL){
+	if(l != NULL && l->first != NULL){
 		i = 0;
 	}
 	return i;
 }
 
-/*Vide complétement la pile*/
-void viderPile(Pile *p){
+/*Vide complétement la liste*/
+void viderListe(Liste *l){
 
-	while(p->first != NULL){
-		depilerPile(p);
+	while(l->first != NULL){
+		supprimerDernierElementListe(l);
 	}
 
 }
 
-/*On compare deux piles p1 et p2
+/*On compare deux listes l1 et l2
 **Retour 1 en cas d'égalité, 0 sinon
-**On suit le principe d'une pile (on ne peut accéder qu'à la première valeur au sommet), mais avec le formalisme pointeur, on pourrait très bien remonter la pile telle une chaine
 */
-int estegalePile(Pile *p1, Pile *p2){
+int estEgaleListe(Liste* l1, Liste* l2){
 
-	Pile *ptmp1 = creerPile();
-	Pile *ptmp2 = creerPile();
+	Cell* elem1 = l1->first;
+	Cell* elem2 = l2->first;
 	short int stop = 1;
 
-	while (p1 != NULL && p1->first != NULL && p2 != NULL && p2->first != NULL && stop == 1){
-		if(sommet(p1) != sommet(p2)){
-			stop = 0;
-		}
-		else{
-			empilerPile(ptmp1, sommet(p1));
-			empilerPile(ptmp2, sommet(p2));
-			depilerPile(p1);
-			depilerPile(p2);
-		}
-	}
-
 	/*On verifie si la taille est différente*/
-	if( (p2->first != NULL)|(p1->first != NULL)){
+	if(l1->size != l2 ->size){
 		stop = 0;
 	}
 
-	/*On reempile les piles*/
-	while (ptmp1 != NULL && ptmp1->first != NULL && ptmp2 != NULL && ptmp2->first != NULL){
-		empilerPile(p1, sommet(ptmp1));
-		empilerPile(p2, sommet(ptmp2));
-		depilerPile(ptmp1);
-		depilerPile(ptmp2);
+	while (elem1 != NULL && elem2 != NULL && stop == 1){
+		if(elem1->value != elem2->value){
+			stop = 0;
+		}
+		else{
+			elem1 = elem1->nxt;
+			elem2 = elem2->nxt;
+		}
 	}
-
-	free(ptmp1);
-	free(ptmp2);
 	
 	return stop;
 	
 }
 
-/*Tri dans l'ordre croissant les valeurs d'une pile*/
-Pile* trierPile(Pile *p1){
+/*Tri dans l'ordre croissant les valeurs d'une liste*/
+void trierListe(Liste *l){
 
-	int min = sommet(p1);
+	int valtmp;
+	int stop = 0;
+	Cell * elem;
 
-	Pile *p2= creerPile();
-	Pile *p3 = creerPile();
-
-	while (p1->first != NULL){
-
-		while(p1 != NULL){
-			empilerPile(p2, sommet(p1));
-			if(min>sommet(p1)){
-				min = sommet(p1);
+	while(stop == 0){
+		elem = l->first;
+		stop = 1;
+		while(elem->nxt != NULL){
+			if(elem->nxt->value < elem->value){
+				valtmp = elem->nxt->value;
+				elem->nxt->value = elem->value;
+				elem->value = valtmp;
+				stop = 0;
 			}
-			depilerPile(p1);
+			elem = elem->nxt;
 		}
-
-		while(p2 != NULL){
-			if(min!=sommet(p2)){
-				empilerPile(p1, sommet(p2));
-				depilerPile(p2);
-			}
-			else{
-				empilerPile(p3, min);
-				depilerPile(p2);
-			}	
-		}
-		min = sommet(p1);		
 	}
-
-	while(p3->first != NULL){
-		empilerPile(p1, sommet(p3));
-		depilerPile(p3);
-	}
-
-	free(p2);
-	free(p3);
-	return p1;
 }
+
+
+//todo : fusionner 2 listes triées, incrémenter une liste binaire, décrémenter, extraire une chaine, additionner/division de polynomes
+
 
 /*Test des fonctions ci-dessus*/
 int main(){
 
-	Pile *p = creerPile();	
+	Liste *l = creerListe();
+	Cell *e;	
 
-	empilerPile(p, 5);
-	empilerPile(p, 10);
-	empilerPile(p, 15);
-	empilerPile(p, 20);
+	ajouterDernierElementListe(l, 5);
+	afficherListe(l);
+	ajouterDernierElementListe(l, 10);
+	afficherListe(l);
+	ajouterElementListe(l, 20, 3);
+
+	e = chercherElementListe(l, 10);
+	if(e != NULL){printf("Trouvé !\n");}
+	e = chercherElementListe(l, 15);
+	if(e != NULL){printf("Non Trouvé !\n");}
 	
-	printf("%d\n", sommet(p));
+	afficherListe(l);
+	printf("%d\n", listeEstVide(l));
+
+	ajouterDernierElementListe(l, 7);
+	afficherListe(l);
+
+	supprimerValeurListe(l, 5);
+	afficherListe(l);
+
+	trierListe(l);
+	afficherListe(l);
 	
-	depilerPile(p);
+	supprimerElementListe(l, 1);
+	afficherListe(l);
 
-	printf("%d\n", sommet(p));
-	
-	printf("Est vide : %d\n", pileEstVide(p));
+	supprimerDernierElementListe(l);
+	afficherListe(l);
 
-	viderPile(p);
-
-	printf("Est vide : %d\n", pileEstVide(p));
+	viderListe(l);
+	afficherListe(l);
 
 	return 0;
 
