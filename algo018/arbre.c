@@ -135,21 +135,40 @@ int estEgal(Arbre *a1, Arbre *a2){
 	return parcoursEgal(a1->root, a2->root, 1);
 }
 
-int equilibrageArbre(Arbre *a){}
+int viderArbre(){
+//parcourspostfixe 
+}
 
-int ajoutArbre(){}
+int equilibrageArbre(Arbre *a){
+//parcours case par case de l'arbre de base en ajoutant dans un nouveau qui remplacera l'autre
+}
 
-int ajoutLogiqueArbre(){}
+int ajoutArbre(){
+//calcul hauteur et nombre de case si arbre equilibre, sinon ajout ajout logique
+}
 
-int retirerElementArbre(){}
+int ajoutLogiqueArbre(){
+//calcul en comparant les valeurs des noeufs fils
+}
 
-int viderArbre(){}
+int retirerElementArbre(){
+//supprimer le noeud n en ramifiant l'arbre (fd du top devient l'ancien fd du noeud, idem pour gauche)
+}
 
-void decodageArbreHuffman(){}
+void decodageArbreHuffman(){
+//voir cours
+}
 
-void encodageHuffman(){}
+void encodageHuffman(){
+//voir cours
+}
 
-void afficherConfigurationsArbre(){}
+void afficherConfigurationsArbre(){
+//parcorus de l'arbre en largeur
+//inverser fd et fg pour chaque noeud recursivement
+//faire un algorithme "afficher arbre jusqu'au noeud x"
+//
+}
 
 
 int main(){
