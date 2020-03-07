@@ -194,6 +194,8 @@ Pile* trierPile(Pile *p1){
 	return p1;
 }
 
+int compterOccurence(Pile *p, int x){} //Pile p intacte !
+
 /*Test des fonctions ci-dessus*/
 int main(){
 

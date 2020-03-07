@@ -337,9 +337,15 @@ void trierListe(Liste *l){
 	}
 }
 
+void fusionnerListes(Liste *l1, Liste *l2){}
 
-//todo : fusionner 2 listes triées, incrémenter une liste binaire, décrémenter, extraire une chaine, additionner/division de polynomes
+void incrementerListeBinaire(Liste *l){}
 
+void decrementerListeBinaire(Liste *l){}
+
+void extraireChaine(Liste *l, int a, int b){}
+
+void additionPolynome(Liste *l1, Liste *l2){}
 
 /*Test des fonctions ci-dessus*/
 int main(){

@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "pile.h"
 
-/*Element de la pile de type int*/
+/*Element de l'arbre de type int*/
 typedef struct Node Node;
 struct Node
 {
@@ -9,7 +10,7 @@ struct Node
     Node *lft, *rgt, *top;
 };
 
-/*Liste de taille n, de premier element first et de dernier element last*/
+/*Liste de taille n, de premier element root*/
 typedef struct Arbre Arbre;
 struct Arbre
 {
@@ -27,22 +28,6 @@ Arbre* creerArbre(){
 	a->root = NULL;
 	a->size = 0;
 	return a;
-}
-
-void afficher(Arbre *a, char c){
-	
-	switch(c){
-		case('p'):
-			afficherPostfixe(a->root);
-			break;
-		case('i'):
-			afficherInfine(a->root);
-			break;
-		default:
-			afficherPrefixe(a->root);
-			break;
-	}
-
 }
 
 void afficherPrefixe(Node *e){
@@ -69,7 +54,32 @@ void afficherPostfixe(Node *e){
 	}
 }
 
-void calculHauteur(Arbre *a){
+void afficher(Arbre *a, char c){
+	
+	switch(c){
+		case('p'):
+			afficherPostfixe(a->root);
+			break;
+		case('i'):
+			afficherInfine(a->root);
+			break;
+		default:
+			afficherPrefixe(a->root);
+			break;
+	}
+
+}
+
+
+int parcoursHauteur(Node *e, int h){
+	if(e != NULL){
+		parcoursHauteur(e->lft, h+1);
+		parcoursHauteur(e->rgt, h+1);
+	}
+	return h;
+}
+
+int calculHauteur(Arbre *a){
 	int h;
 	Node *e = a->root;
 	if(e != NULL){
@@ -88,40 +98,28 @@ int calculHauteurEtage(Node *e){
 
 }
 
-int parcoursHauteur(Node *e, h){
-	if(e != NULL){
-		parcoursHauteur(e->lft, h+1);
-		parcoursHauteur(e->rgt, h+1);
-	}
-	return h;
-}
-
 int estEquilibre(Arbre *a){
 	int hl = 0;
 	int hr = 0;
 
 	if(a->root->lft != NULL){
-		hl = calculHauteurEtage(a->root->lft)
+		hl = calculHauteurEtage(a->root->lft);
 	}
 	if(a->root->rgt != NULL){
-		hr = calculHauteurEtage(a->root->rgt)
+		hr = calculHauteurEtage(a->root->rgt);
 	}
-	return (hr+1==hl | hl+1==hr | hr == hr);
+	return (hr+1==hl|hl+1==hr|hr == hr);
 }
 
-int estEgal(Arbre *a1, Arbre *a2){
-	return parcoursEgal(a1->root, a2->root, 1);
-}
-
-void parcoursEgal(Node *e1, Node*e2, int n){
+int parcoursEgal(Node *e1, Node*e2, int n){
 	int n_tmp = n;
 	if(e1 != NULL &  e1 != NULL){
 		if(e1->value != e2->value){
 			n_tmp = 0;
 		}
 		else{
-			n_tmp = afficherPrefixe(e1->lft, e2->lft, n_tmp);
-			n_tmp = afficherPrefixe(e1->rgt, e2->rgt, n_tmp);
+			n_tmp = parcoursEgal(e1->lft, e2->lft, n_tmp);
+			n_tmp = parcoursEgal(e1->rgt, e2->rgt, n_tmp);
 		}
 	}
 	else{
@@ -130,5 +128,31 @@ void parcoursEgal(Node *e1, Node*e2, int n){
 		}
 	}
 	return n_tmp;
+
+}
+
+int estEgal(Arbre *a1, Arbre *a2){
+	return parcoursEgal(a1->root, a2->root, 1);
+}
+
+int equilibrageArbre(Arbre *a){}
+
+int ajoutArbre(){}
+
+int ajoutLogiqueArbre(){}
+
+int retirerElementArbre(){}
+
+int viderArbre(){}
+
+void decodageArbreHuffman(){}
+
+void encodageHuffman(){}
+
+void afficherConfigurationsArbre(){}
+
+
+int main(){
+
 }
 
