@@ -72,11 +72,16 @@ void afficher(Arbre *a, char c){
 
 
 int parcoursHauteur(Node *e, int h){
+	int htmp1 = h;
+	int htmp2 = h;
 	if(e != NULL){
-		parcoursHauteur(e->lft, h+1);
-		parcoursHauteur(e->rgt, h+1);
+		htmp1 = parcoursHauteur(e->lft, h+1);
+		htmp2 = parcoursHauteur(e->rgt, h+1);
+		if(htmp1 < htmp2){
+			htmp1 = thmp2;
+		}
 	}
-	return h;
+	return htmp1;
 }
 
 int calculHauteur(Arbre *a){
