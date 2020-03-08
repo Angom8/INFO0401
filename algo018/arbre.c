@@ -135,6 +135,10 @@ int estEgal(Arbre *a1, Arbre *a2){
 	return parcoursEgal(a1->root, a2->root, 1);
 }
 
+int estvideArbre(Arbre *a){
+	return (a->root == NULL);
+}
+
 int viderArbre(){
 //parcourspostfixe 
 }
