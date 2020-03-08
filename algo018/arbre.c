@@ -94,23 +94,15 @@ int calculHauteur(Arbre *a){
 
 }
 
-int calculHauteurEtage(Node *e){
-	int h;
-	if(e != NULL){
-		h = parcoursHauteur(e, 0);
-	}
-	return h;
-}
-
 int estEquilibre(Arbre *a){
 	int hl = 0;
 	int hr = 0;
 
 	if(a->root->lft != NULL){
-		hl = calculHauteurEtage(a->root->lft);
+		hl = calculHauteur(a->root->lft, 0);
 	}
 	if(a->root->rgt != NULL){
-		hr = calculHauteurEtage(a->root->rgt);
+		hr = calculHauteur(a->root->rgt, 0);
 	}
 	return (hr+1==hl|hl+1==hr|hr == hr);
 }
