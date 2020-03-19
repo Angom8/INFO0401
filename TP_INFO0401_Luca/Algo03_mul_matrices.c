@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main(){
-	//Declaration
+	//Declarations
 	int ** Ma, ** Mb, ** Mc;
 	int i, j, k, n;
 	
@@ -81,4 +81,11 @@ int main(){
 		printf("\n");
 	}
 	printf("\n");
+	
+	//Nettoyage de la mémoire
+	free(m1);
+	free(m2);
+	free(m3);
+
+	exit(0);
 }
