@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main(){
-	//Declaration
+	//Declarations
 	int i, j, n1, n2;
 	int * a, * b, * c;
 	
@@ -80,4 +80,11 @@ int main(){
 		printf("%d ",c[i]);
 	}
 	printf("\n");
+	
+	//Nettoyage de la mémoire
+	free(a);
+	free(b);
+	free(c);
+	
+	exit(0);
 }
