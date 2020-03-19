@@ -3,7 +3,7 @@
 #include <time.h>
 
 int main(){
-	//Declaration
+	//Declarations
 	int n, i;
 	long int a, b, c;
 	
