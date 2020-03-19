@@ -3,7 +3,7 @@
 #include <time.h>
 
 int main(){
-	//Declaration
+	//Declarations
 	int n, i;
 	long int * tab;
 	
@@ -24,7 +24,7 @@ int main(){
 	}
 	
 	
-	Fi//Affiche la suite de Fibonacci
+	//Affiche la suite de Fibonacci
 	for(i=0;i<n;i++){
 		printf("%d ", tab[i]);
 	}
