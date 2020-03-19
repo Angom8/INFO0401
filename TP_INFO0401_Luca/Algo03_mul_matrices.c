@@ -83,9 +83,14 @@ int main(){
 	printf("\n");
 	
 	//Nettoyage de la mémoire
-	free(m1);
-	free(m2);
-	free(m3);
+	for(i=0;i<n;i++){
+		free(Ma[i]);
+		free(Mb[i]);
+		free(Mc[i]);
+	}
+	free(Ma);
+	free(Mb);
+	free(Mc);
 
 	exit(0);
 }
