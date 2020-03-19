@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main(){
-	//Declaration
+	//Declarations
 	int * t1; 
 	float * t2;
 	int i, n, a, b;
@@ -41,7 +41,7 @@ int main(){
 	}
 	printf("\n");
 	
-	//Normalisation
+	//Recherche de la valeur maximale du tableau
 	max = t1[0];
 	for(i=0;i<n;i++){
 		if(t1[i]>max){
@@ -52,6 +52,7 @@ int main(){
 	
 	t2 = (float *)calloc(n, sizeof(float));
 	
+	//Normalisation
 	printf("Resultat : \n");
 	for(i=0;i<n;i++){
 		if(a < 0){
@@ -62,4 +63,10 @@ int main(){
 		printf("%.2f ", t2[i]);
 	}
 	printf("\n");
+	
+	//Nettoyage de la mémoire
+	free(t1);
+	free(t2);
+	
+	exit(0);
 }
