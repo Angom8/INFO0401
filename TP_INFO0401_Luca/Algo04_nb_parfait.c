@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main(){
-	//Declaration
+	//Declarations
 	int i, nb, tmp;
 	
 	//Lecture de la taille
