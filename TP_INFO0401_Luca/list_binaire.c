@@ -185,9 +185,7 @@ void incrementationListeB(Liste * l){
 		counter = l->size-2;
 		c = l->last;
 		while(c != NULL && counter >= 0 && c->value != 0){
-			afficherListe(l);
 			c->value = 0;
-			afficherListe(l);
 			c = chercherElementListe(l,counter);
 			counter--;
 		}
@@ -198,6 +196,7 @@ void incrementationListeB(Liste * l){
 			ajouterDernierElementListe(l, 0);
 		}
 	}
+	afficherListe(l);
 }
 
 int main(){
