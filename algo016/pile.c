@@ -119,7 +119,8 @@ int estegalePile(Pile *p1, Pile *p2){
 		depilerPile(ptmp1);
 		depilerPile(ptmp2);
 	}
-
+	
+	/*Nettoyage de la mémoire*/
 	free(ptmp1);
 	free(ptmp2);
 	
@@ -143,16 +144,15 @@ void afficherPile(Pile *p){
 		depilerPile(p);
 	}
 
-
 	/*On repile la pile*/
 	while (ptmp != NULL && ptmp->first != NULL){
 		empilerPile(p, sommet(ptmp));
 		depilerPile(ptmp);
 	}
 	printf(" - FIN\n");
-
-	free(ptmp);
 	
+	/*Nettoyage de la mémoire*/
+	free(ptmp);
 }
 
 /*Tri dans l'ordre croissant les valeurs d'une pile*/
@@ -190,9 +190,11 @@ Pile* trierPile(Pile *p1){
 		empilerPile(p1, sommet(p3));
 		depilerPile(p3);
 	}
-
+	
+	/*Nettoyage de la mémoire*/
 	free(p2);
 	free(p3);
+	
 	return p1;
 }
 
@@ -221,5 +223,4 @@ int main(){
 	printf("Est vide : %d\n", pileEstVide(p));
 
 	return 0;
-
 }
