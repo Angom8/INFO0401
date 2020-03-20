@@ -156,46 +156,40 @@ void afficherPile(Pile *p){
 }
 
 /*Tri dans l'ordre croissant les valeurs d'une pile*/
-Pile* trierPile(Pile *p1){
-
-	int min = sommet(p1);
-
-	Pile *p2= creerPile();
-	Pile *p3 = creerPile();
-
-	while (p1->first != NULL){
-
-		while(p1 != NULL){
-			empilerPile(p2, sommet(p1));
-			if(min>sommet(p1)){
-				min = sommet(p1);
+void trierPile(Pile * p){
+	/*Declarations*/
+	int min;
+	Pile * tmp1 = creerPile();
+	Pile * tmp2 = creerPile();
+	
+	while(p->first != NULL){
+		min = sommet(p);
+		while(p->first != NULL){
+			if(sommet(p) < min){
+				min = sommet(p);
 			}
-			depilerPile(p1);
+			empiler(tmp1, sommet(p));
+			depiler(p);
 		}
-
-		while(p2 != NULL){
-			if(min!=sommet(p2)){
-				empilerPile(p1, sommet(p2));
-				depilerPile(p2);
+		
+		while(tmp1->first != NULL){
+			if(sommet(tmp1) != min){
+				empiler(p, sommet(tmp1));
 			}
-			else{
-				empilerPile(p3, min);
-				depilerPile(p2);
-			}	
+			depiler(tmp1);
 		}
-		min = sommet(p1);		
+		
+		empiler(tmp2, min);
 	}
-
-	while(p3->first != NULL){
-		empilerPile(p1, sommet(p3));
-		depilerPile(p3);
+	
+	while(tmp2->first != NULL){
+		empiler(p, sommet(tmp2));
+		depiler(tmp2);
 	}
 	
 	/*Nettoyage de la mémoire*/
-	free(p2);
-	free(p3);
-	
-	return p1;
+	free(tmp1);
+	free(tmp2);
 }
 
 int compterOccurence(Pile *p, int x){} //Pile p intacte !
