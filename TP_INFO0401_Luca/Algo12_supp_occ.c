@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main(){
-	//Declaration
+	//Declarations
 	int n, nb;
 	int *p1, *p2;
 	int * tab;
@@ -48,5 +48,8 @@ int main(){
 	}
 	printf("\n");
 	
-	return 0;
+	//Nettoyage de la mémoire
+	free(tab);
+	
+	exit(0);
 }
