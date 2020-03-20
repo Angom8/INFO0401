@@ -86,7 +86,8 @@ void viderPile(Pile *p){
 
 /*On compare deux piles p1 et p2
 **Retour 1 en cas d'égalité, 0 sinon
-**On suit le principe d'une pile (on ne peut accéder qu'à la première valeur au sommet), mais avec le formalisme pointeur, on pourrait très bien remonter la pile telle une chaine
+**On suit le principe d'une pile (on ne peut accéder qu'à la première valeur au sommet), 
+**mais avec le formalisme pointeur, on pourrait très bien remonter la pile telle une chaine
 */
 int estegalePile(Pile *p1, Pile *p2){
 
