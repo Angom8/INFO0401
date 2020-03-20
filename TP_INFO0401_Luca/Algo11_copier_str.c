@@ -19,7 +19,6 @@ int main(){
 	//Initialisation
 	tab_copy = (char *)calloc(n, sizeof(char));
 	
-	
 	//Copie
 	for(p1=tab, p2 = tab_copy;*p1 != '\0';p1++, p2++){
 		*p2 = *p1;
