@@ -128,7 +128,8 @@ int estegalePile(Pile *p1, Pile *p2){
 }
 
 /*Affiche le contenu de la pile
-**On suit le principe d'une pile (on ne peut accéder qu'à la première valeur au sommet), mais avec le formalisme pointeur, on pourrait très bien remonter la pile telle une chaine
+**On suit le principe d'une pile (on ne peut accéder qu'à la première valeur au sommet),
+**mais avec le formalisme pointeur, on pourrait très bien remonter la pile telle une chaine
 */
 void afficherPile(Pile *p){
 
