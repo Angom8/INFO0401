@@ -100,5 +100,5 @@ int main(){
 	}
 	printf("résultat : %d \n", n);
 	
-	return 0;
+	exit(0);
 }
