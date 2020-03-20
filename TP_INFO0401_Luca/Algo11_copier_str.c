@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main(){
-	//Declaration
+	//Declarations
 	int n;
 	char * p1, * p2;
 	char tab[100], * tab_copy;
@@ -27,5 +27,9 @@ int main(){
 	
 	//Affichage du résultat
 	printf("résultat : %s de taille %d \n", tab_copy, n);
-	return 0;
+	
+	//Nettoyage de la mémoire
+	free(tab_copy);
+	
+	exit(0);
 }
