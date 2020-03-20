@@ -3,7 +3,7 @@
 #include <time.h>
 
 int main(){
-	//Declaration
+	//Declarations
 	int n, i, nb, compteur, tmp1, tmp2;
 	int * tab;
 	
@@ -53,5 +53,8 @@ int main(){
 	//Affichage du résultat
 	printf("Le majoté est %d qui est compté %d fois \n", nb, compteur);
 	
-	return 0;
+	//Nettoyage de la mémoire
+	free(tab);
+	
+	exit(0);
 }
