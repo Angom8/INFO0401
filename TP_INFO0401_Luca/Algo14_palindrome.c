@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main(){
-	//Declaration
+	//Declarations
  	short int test = 1;
 	int n;
 	char *p1, *p2;
@@ -38,6 +38,5 @@ int main(){
 		printf(" est un palindrome \n");
 	}
 	
-	
-	return 0;
+	exit(0);
 }
