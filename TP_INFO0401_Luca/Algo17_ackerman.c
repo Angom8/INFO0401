@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Fonction Ackerman récursif
 int Ackerman(int m, int n){
 	if(m == 0){
 		return (n+1);
@@ -12,7 +13,10 @@ int Ackerman(int m, int n){
 }
 
 int main(){
+	//Déclarations
 	int m,n;
+	
+	//Initialisation
 	do{
 		printf("saisir n: ");
 		scanf("%d",&n);
@@ -21,7 +25,10 @@ int main(){
 		printf("saisir m : ");
 		scanf("%d",&m);
 	}while(n<0);
+	
+	//Affichage du résultat
 	printf("%d %d \n",n,m);
 	printf("%d \n", Ackerman(m,n));
-	return 0;
+	
+	exit(0);
 }
