@@ -64,27 +64,23 @@ void afficher(Arbre *a, char c){
 
 
 int parcoursHauteur(Node *e, int h){
+	int htmp1 = h;
+	int htmp2 = h;
 	if(e != NULL){
-		parcoursHauteur(e->lft, h+1);
-		parcoursHauteur(e->rgt, h+1);
+		htmp1 = parcoursHauteur(e->lft, h+1);
+		htmp2 = parcoursHauteur(e->rgt, h+1);
+		if(htmp1 < htmp2){
+			htmp1 = thmp2;
+		}
 	}
-	return h;
+	return htmp1;
 }
 
 int calculHauteur(Arbre *a){
 	int h;
 	Node *e = a->root;
 	if(e != NULL){
-		h = parcoursHauteur(e, 1);
-	}
-	return h;
-
-}
-
-int calculHauteurEtage(Node *e){
-	int h;
-	if(e != NULL){
-		h = parcoursHauteur(e, 1);
+		h = parcoursHauteur(e, 0);
 	}
 	return h;
 
@@ -95,10 +91,10 @@ int estEquilibre(Arbre *a){
 	int hr = 0;
 
 	if(a->root->lft != NULL){
-		hl = calculHauteurEtage(a->root->lft);
+		hl = calculHauteur(a->root->lft, 0);
 	}
 	if(a->root->rgt != NULL){
-		hr = calculHauteurEtage(a->root->rgt);
+		hr = calculHauteur(a->root->rgt, 0);
 	}
 	return (hr+1==hl|hl+1==hr|hr == hr);
 }
@@ -126,7 +122,6 @@ int parcoursEgal(Node *e1, Node*e2, int n){
 int estEgal(Arbre *a1, Arbre *a2){
 	return parcoursEgal(a1->root, a2->root, 1);
 }
-
 
 int parcoursLargeur(Arbre *a){
 
@@ -162,7 +157,11 @@ int parcoursLargeur(Arbre *a){
 		p1 = p2;
 		viderPile(p2);
 	}
+
+int estvideArbre(Arbre *a){
+	return (a->root == NULL);
 }
+
 
 void vidage(Node *e){
 	if(e != NULL){

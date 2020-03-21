@@ -26,7 +26,8 @@ int main(void){
 		scanf("%d", &taille);
 	}while(taille<1);
 
-	t1 = malloc(taille*sizeof(int));//allocation dynamique des tableaux
+	//allocation dynamique des tableaux
+	t1 = malloc(taille*sizeof(int));
 	t2 = malloc(taille*sizeof(float));
 
 	printf("Insérez les valeurs de votre tableau\n");
@@ -36,7 +37,6 @@ int main(void){
 	}
 
 	//affichage des valeurs
-
 	printf("Votre tableau :\n");
 	
 	for(i=0;i<taille;i++){
@@ -74,7 +74,6 @@ int main(void){
 	}
 
 	//affichage du deuxième tableau
-
 	printf("Votre tableau normalisé :\n");
 	
 	for(i=0;i<taille;i++){
