@@ -1,11 +1,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/*Element de l'arbre de type int*/
+typedef struct Node Node;
+struct Node
+{
+    int value;
+    Node *lft, *rgt, *top;
+};
+
 /*Element de la pile de type int*/
 typedef struct Cell Cell;
 struct Cell
 {
-    int value;
+    Node* value;
     Cell *nxt;
 };
 
@@ -24,7 +32,7 @@ Pile* creerPile(){
 }
 
 /*On ajoute la valeur val dans notre pile*/
-void empilerPile(Pile *p, int val){	
+void empilerPile(Pile *p, Node* val){	
 
 	Cell *new_c = malloc(sizeof(*new_c));
     	if (p == NULL || new_c == NULL){
@@ -58,7 +66,7 @@ void depilerPile(Pile *p){
 }
 
 /*Retourne la valeur du sommet de la pile*/
-int sommet(Pile *p){
+Node* sommet(Pile *p){
 
 	Cell *elem = p->first;
 

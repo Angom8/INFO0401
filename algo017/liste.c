@@ -337,15 +337,54 @@ void trierListe(Liste *l){
 	}
 }
 
-void fusionnerListes(Liste *l1, Liste *l2){}
+Liste* fusionnerListes(Liste *l1, Liste *l2){
 
-void incrementerListeBinaire(Liste *l){}
+	Liste* l3 = creerListe();
+	Cell elem1 = l1->first;
+	Cell elem2 = l2->first;
 
-void decrementerListeBinaire(Liste *l){}
+	while(elem1 != NULL || elem2 != NULL){
+		
+		if(elem1 != NULL){
+			if(elem2!=NULL){
+				if(elem1->value < elem2->value){
+					ajouterDernierElementListe(l3, elem1->value);
+					elem1 = elem1->nxt;
+				}
+				else{
+					ajouterDernierElementListe(l3, elem2->value);
+					elem2 = elem2->nxt;
+				}
+			}
+			else{
+				ajouterDernierElementListe(l3, elem1->value);
+				elem1 = elem1->nxt;
+			}
+		}
+		else{
+			ajouterDernierElementListe(l3, elem2->value);
+			elem2 = elem2->nxt;
+		}
 
-void extraireChaine(Liste *l, int a, int b){}
+	}
+}
 
-void additionPolynome(Liste *l1, Liste *l2){}
+void extraireChaine(Liste *l, int a, int b){
+
+	Cell elem = l->first;
+	int c = 0;
+
+	while(elem != NULL){
+		if(c >= a && c <= b){
+			printf("%d", elem->value);
+		}
+		elem = elem->nxt;
+		c ++;
+	}
+
+
+}
+
 
 /*Test des fonctions ci-dessus*/
 int main(){
