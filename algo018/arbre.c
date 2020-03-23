@@ -125,7 +125,7 @@ int estEgal(Arbre *a1, Arbre *a2){
 
 int parcoursLargeur(Arbre *a){
 
-	int done = 1;
+	int done = 0;
 	Pile *p1 = creerPile();
 	Pile *p2 = creerPile();
 	Node * tmp;
@@ -133,7 +133,8 @@ int parcoursLargeur(Arbre *a){
 	//prendre racine
 	empilerPile(p1, a->root);
 
-	while(done != 0){
+	while(done != 1){
+		done = 1;
 		//depiler et stocker nouveaux fils dans une pile
 		while(p1->first != NULL){
 
