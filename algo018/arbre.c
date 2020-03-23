@@ -152,7 +152,7 @@ int parcoursLargeur(Arbre *a){
 			else{
 				printf("[]");
 			}
-			depilerPiler(p1);
+			depilerPile(p1);
 		}	
 		//répéter tant que pile pas vide au départ (= pas de fils). Stockage des null, donc arret quand un parcours de pile = que des null
 		p1 = p2;
