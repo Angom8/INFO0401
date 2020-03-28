@@ -340,8 +340,8 @@ void trierListe(Liste *l){
 Liste* fusionnerListes(Liste *l1, Liste *l2){
 
 	Liste* l3 = creerListe();
-	Cell elem1 = l1->first;
-	Cell elem2 = l2->first;
+	Cell *elem1 = l1->first;
+	Cell *elem2 = l2->first;
 
 	while(elem1 != NULL || elem2 != NULL){
 		
@@ -367,11 +367,13 @@ Liste* fusionnerListes(Liste *l1, Liste *l2){
 		}
 
 	}
+
+	return l3;
 }
 
 void extraireChaine(Liste *l, int a, int b){
 
-	Cell elem = l->first;
+	Cell* elem = l->first;
 	int c = 0;
 
 	while(elem != NULL){
