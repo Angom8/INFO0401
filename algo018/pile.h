@@ -53,24 +53,27 @@ void empilerPile(Pile *p, Node* val){
 }
 
 /*On retire le sommet*/
-void depilerPile(Pile *p){
+Node* depilerPile(Pile *p){
 
 	Cell *elem = p->first;
+	Node* r;
 
 	if (p != NULL && p->first != NULL){
-		printf("--%d\n", elem->value);
 		p->first = elem->nxt;
+		r = elem->value;
 		free(elem);
 	}
+
+	return r;
 	
 }
 
 /*Retourne la valeur du sommet de la pile*/
-Node* sommet(Pile *p){
+Cell* sommet(Pile *p){
 
 	Cell *elem = p->first;
 
-	return elem->value;
+	return elem;
 	
 }
 
