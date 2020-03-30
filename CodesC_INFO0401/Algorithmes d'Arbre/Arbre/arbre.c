@@ -226,49 +226,53 @@ int ajoutLargeur(Arbre *a, int v){
 	b->value = v;
 	
 	int done = 0;
+	if(a->root != NULL){
+		//prendre racine
+		empilerPile(p1, a->root);
 
-	//prendre racine
-	empilerPile(p1, a->root);
+		while(done != 1){
+			done = 1;
+			//depiler et stocker nouveaux fils dans une pile
+			while(p1->first != NULL){
 
-	while(done != 1){
-		done = 1;
-		//depiler et stocker nouveaux fils dans une pile
-		while(p1->first != NULL){
+				empilerPile(p2, sommet(p1)->value->lft);
+				tmp = sommet(p1)->value->lft;
 
-			empilerPile(p2, sommet(p1)->value->lft);
-			tmp = sommet(p1)->value->lft;
-
-			if(tmp !=  NULL){
-				done = 0;
-			}
-			else{
-				sommet(p1)->value->lft = b;
-				b->top = sommet(p1)->value;
-			}
-
-			empilerPile(p2, sommet(p1)->value->rgt);
-			tmp = sommet(p1)->value->rgt;
-
-			if(tmp != NULL){
-				done = 0;
-			}
-			else{
-				if(tmp != NULL){
-					sommet(p1)->value->rgt = b;
+				if(tmp !=  NULL){
+					done = 0;
+				}
+				else{
+					sommet(p1)->value->lft = b;
 					b->top = sommet(p1)->value;
 				}
-			}
-			depilerPile(p1);
-		}	
-		//répéter tant que pile pas vide au départ (= pas de fils). Stockage des null, donc arret quand un parcours de pile = que des null
-		p1 = p2;
-		viderPile(p2);
-	}
 
-	viderPile(p1);
-	viderPile(p2);
-	free(p1);
-	free(p2);
+				empilerPile(p2, sommet(p1)->value->rgt);
+				tmp = sommet(p1)->value->rgt;
+
+				if(tmp != NULL){
+					done = 0;
+				}
+				else{
+					if(tmp != NULL){
+						sommet(p1)->value->rgt = b;
+						b->top = sommet(p1)->value;
+					}
+				}
+				depilerPile(p1);
+			}	
+			//répéter tant que pile pas vide au départ (= pas de fils). Stockage des null, donc arret quand un parcours de pile = que des null
+			p1 = p2;
+			viderPile(p2);
+		}
+
+		viderPile(p1);
+		viderPile(p2);
+		free(p1);
+		free(p2);
+	}
+	else{
+		a->root = b;
+	}
 }
 
 
@@ -322,32 +326,7 @@ int affichageLargeur(Arbre *a){
 	free(p2);
 }
 
-int ajoutArbre(Arbre *a, int v){
-//calcul hauteur et nombre de case si arbre equilibre, sinon ajout ajout logique
-	int h = calculHauteur(a->root);
-	int z = 2;
 
-	
-	if(estEquilibre(a) != 1){
-		if(a->size > 0){
-			while(h>1){
-				z*=2;
-				h-=1; 
-			}
-			ajoutLargeur(a, v);
-		}
-		else{
-			Node* elem = malloc(sizeof(Node));
-			elem->value = v;
-			a->root = elem;
-		}
-		
-	}
-	else{
-		ajoutLogiqueArbre(a->root, v);
-	}
-
-}
 
 void ajouterTriElement(int n, Node* c){
 
