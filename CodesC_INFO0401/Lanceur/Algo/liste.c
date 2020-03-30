@@ -1,14 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/*Element de la pile de type int*/
-typedef struct Cell Cell;
-struct Cell
-{
-    int value;
-    Cell *nxt;
-};
-
 /*Liste de taille n, de premier element first et de dernier element last*/
 typedef struct Liste Liste;
 struct Liste
@@ -384,49 +376,6 @@ void extraireChaine(Liste *l, int a, int b){
 		c ++;
 	}
 
-
-}
-
-
-/*Test des fonctions ci-dessus*/
-int main(){
-
-	Liste *l = creerListe();
-	Cell *e;	
-
-	ajouterDernierElementListe(l, 5);
-	afficherListe(l);
-	ajouterDernierElementListe(l, 10);
-	afficherListe(l);
-	ajouterElementListe(l, 20, 3);
-
-	e = chercherElementListe(l, 10);
-	if(e != NULL){printf("Trouvé !\n");}
-	e = chercherElementListe(l, 15);
-	if(e != NULL){printf("Non Trouvé !\n");}
-	
-	afficherListe(l);
-	printf("%d\n", listeEstVide(l));
-
-	ajouterDernierElementListe(l, 7);
-	afficherListe(l);
-
-	supprimerValeurListe(l, 5);
-	afficherListe(l);
-
-	trierListe(l);
-	afficherListe(l);
-	
-	supprimerElementListe(l, 1);
-	afficherListe(l);
-
-	supprimerDernierElementListe(l);
-	afficherListe(l);
-
-	viderListe(l);
-	afficherListe(l);
-
-	return 0;
 
 }
 

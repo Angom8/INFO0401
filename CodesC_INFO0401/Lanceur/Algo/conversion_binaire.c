@@ -20,6 +20,9 @@ int * conversion(int nb){
 	int i, tmp, n;
 	int * v;
 	
+	//Si nb négatif on rend positif
+	if(nb<0){nb*=-1;}
+	
 	//Calcul de la taille du tableau
 	tmp = nb;
 	for(i=0;tmp > 0;i++){
