@@ -222,7 +222,10 @@ int ajoutLargeur(Arbre *a, int v){
 	Pile *p1 = creerPile();
 	Pile *p2 = creerPile();
 	Node * tmp;
-	Node * b;
+	Node * b = malloc(sizeof(Node));
+	b->lft = NULL;
+	b->rgt = NULL;
+	b->top = NULL;
 	b->value = v;
 	
 	int done = 0;
@@ -244,6 +247,8 @@ int ajoutLargeur(Arbre *a, int v){
 				else{
 					sommet(p1)->value->lft = b;
 					b->top = sommet(p1)->value;
+					done=1;
+					break;
 				}
 
 				empilerPile(p2, sommet(p1)->value->rgt);
@@ -253,16 +258,17 @@ int ajoutLargeur(Arbre *a, int v){
 					done = 0;
 				}
 				else{
-					if(tmp != NULL){
-						sommet(p1)->value->rgt = b;
-						b->top = sommet(p1)->value;
-					}
+					
+					sommet(p1)->value->rgt = b;
+					b->top = sommet(p1)->value;
+					done=1;
+					break;
 				}
 				depilerPile(p1);
 			}	
 			//répéter tant que pile pas vide au départ (= pas de fils). Stockage des null, donc arret quand un parcours de pile = que des null
-			p1 = p2;
-			viderPile(p2);
+			DeplacementPile(p1,p2);
+			p2->first = NULL;
 		}
 
 		viderPile(p1);
@@ -281,44 +287,52 @@ int affichageLargeur(Arbre *a){
 	Pile *p1 = creerPile();
 	Pile *p2 = creerPile();
 	Node * tmp;
-	int done = 0;
+	int i, h = calculHauteur(a->root);
+	h++;
 
 	//prendre racine
-	empilerPile(p1, a->root);
-
-	while(done != 1){
-		done = 1;
-		//depiler et stocker nouveaux fils dans une pile
+	if(a != NULL && a->root != NULL){
+		empilerPile(p1, a->root);
+		for(i=0;i<(3*h+4);i++){printf("_");}
+		printf("%d", a->root->value);
+		printf("\n");
 		while(p1->first != NULL){
+			h--;
+			for(i=0;i<(h);i++){printf("___");}
+			//depiler et stocker nouveaux fils dans une pile
+			while(p1->first != NULL){
 
-			empilerPile(p2, sommet(p1)->value->lft);
-			tmp = sommet(p1)->value->lft;
+				tmp = sommet(p1)->value->lft;
 
-			if(tmp != NULL){
-				done = 0;
-				printf("%d", sommet(p2)->value->value);
+				if(tmp != NULL){
+					empilerPile(p2, sommet(p1)->value->lft);
+					for(i=0;i<h;i++){printf("_");}
+					printf("%d", sommet(p2)->value->value);
+				}
+				else{
+					printf("_[]");
+				}
+
+				tmp = sommet(p1)->value->rgt;
+
+				if(tmp != NULL){
+					empilerPile(p2, sommet(p1)->value->rgt);
+					for(i=0;i<(h);i++){printf("_");}
+					printf("%d", sommet(p2)->value->value);
+				}
+				else{
+					printf("_[]");
+				}
+
+				depilerPile(p1);
 			}
-			else{
-				printf("[]");
-			}
-
-			empilerPile(p2, sommet(p1)->value->rgt);
-			tmp = sommet(p1)->value->rgt;
-
-			if(tmp != NULL){
-				done = 0;
-				printf("%d", sommet(p2)->value->value);
-			}
-			else{
-				printf("[]");
-			}
-
-			depilerPile(p1);
-		}	
-		//répéter tant que pile pas vide au départ (= pas de fils). Stockage des null, donc arret quand un parcours de pile = que des null
-		p1 = p2;
-		viderPile(p2);
+			printf("\n");
+			//répéter tant que pile pas vide au départ (= pas de fils). Stockage des null, donc arret quand un parcours de pile = que des null
+			DeplacementPile(p1,p2);
+			p2->first = NULL;
+		}
 	}
+	printf("\n");
 
 	viderPile(p1);
 	viderPile(p2);
@@ -466,12 +480,26 @@ void afficherConfigurationsArbre(){
 
 
 int main(){
-	int val;
+	int val, i;
 	Arbre * a = creerArbre();
 	
-	printf("Saisir la valeur : \n");
-	scanf("%d", &val);
-	ajoutLargeur(a, val);
+	for(i=1;i<15;i++){
+		ajoutLargeur(a, i);
+	}
+	
+	afficherPrefixe(a->root);
+	printf("\n");
+	
+	printf("%d\n", a->root->value);
+	printf("%d\n", a->root->lft->value);
+	printf("%d\n", a->root->rgt->value);
+	printf("%d\n", a->root->lft->lft->value);
+	printf("%d\n", a->root->lft->rgt->value);
+	
+	affichageLargeur(a);
+	
+	printf("Hauteur = %d\n",calculHauteur(a->root));
 }
+
 
 

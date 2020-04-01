@@ -34,7 +34,7 @@ Pile* creerPile(){
 /*On ajoute la valeur val dans notre pile*/
 void empilerPile(Pile *p, Node* val){	
 
-	Cell *new_c = malloc(sizeof(*new_c));
+	Cell *new_c = malloc(sizeof(Cell));
     	if (p == NULL || new_c == NULL){
   	}
 	else{
@@ -93,5 +93,18 @@ void viderPile(Pile *p){
 		depilerPile(p);
 	}
 
+}
+
+void DeplacementPile(Pile *p1, Pile *p2){
+	if(p1 != NULL){
+		viderPile(p1);
+		free(p1);
+	}
+	p1=creerPile();
+	
+	while(p2 != NULL && sommet(p2) != NULL){
+		empilerPile(p1, sommet(p2)->value);
+		depilerPile(p2);
+	}
 }
 
