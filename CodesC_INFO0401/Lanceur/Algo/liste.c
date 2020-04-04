@@ -93,9 +93,11 @@ void ajouterDernierElementListe(Liste *l, int val){
 /*On ajoute la valeur val à la place n de notre liste*/
 void ajouterElementListe(Liste *l, int val, int n){	
 
-	Cell *new_c = malloc(sizeof(*new_c));
+	Cell *new_c = malloc(sizeof(Cell));
 	Cell *tmp;
 	int j;
+	
+	if(n < 0){n*=-1;}
 
     	if (l == NULL || new_c == NULL){
   	}
@@ -105,7 +107,7 @@ void ajouterElementListe(Liste *l, int val, int n){
 			if(n<l->size && n>0){
 				//On définit la nouvelle case
 			    	new_c->value = val;
-			    	new_c->nxt = chercherElementListe(l, n+1);
+			    	new_c->nxt = chercherElementListe(l, n);
 
 				//On redéfinit la case n-1
 				tmp = chercherElementListe(l, n-1);

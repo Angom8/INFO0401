@@ -34,7 +34,7 @@ PileNode* creerPileNode(){
 /*On ajoute la valeur val dans notre pile*/
 void empilerPileNode(PileNode *p, Node* val){	
 
-	CellNode *new_c = malloc(sizeof(*new_c));
+	CellNode *new_c = malloc(sizeof(CellNode));
     	if (p == NULL || new_c == NULL){
   	}
 	else{
@@ -69,7 +69,7 @@ Node* depilerPileNode(PileNode *p){
 }
 
 /*Retourne la valeur du sommet de la pile*/
-CellNode* sommetPileNode(PileNode *p){
+CellNode* sommetNode(PileNode *p){
 
 	CellNode *elem = p->first;
 
@@ -93,5 +93,18 @@ void viderPileNode(PileNode *p){
 		depilerPileNode(p);
 	}
 
+}
+
+void DeplacementPileNode(PileNode *p1, PileNode *p2){
+	if(p1 != NULL){
+		viderPileNode(p1);
+		free(p1);
+	}
+	p1=creerPileNode();
+	
+	while(p2 != NULL && sommetNode(p2) != NULL){
+		empilerPileNode(p1, sommetNode(p2)->value);
+		depilerPileNode(p2);
+	}
 }
 

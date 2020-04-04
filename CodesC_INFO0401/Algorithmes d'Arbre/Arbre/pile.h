@@ -10,31 +10,31 @@ struct Node
 };
 
 /*Element de la pile de type int*/
-typedef struct Cell Cell;
-struct Cell
+typedef struct CellNode CellNode;
+struct CellNode
 {
     Node* value;
-    Cell *nxt;
+    CellNode *nxt;
 };
 
 /*Pile de premier element first*/
-typedef struct Pile Pile;
-struct Pile
+typedef struct PileNode PileNode;
+struct PileNode
 {
-    Cell *first;
+    CellNode *first;
 };
 
 /*Initialisation d'une pile */
-Pile* creerPile(){	
-	Pile *p = malloc(sizeof(Pile));
+PileNode* creerPileNode(){	
+	PileNode *p = malloc(sizeof(PileNode));
 	p->first = NULL;
 	return p;
 }
 
 /*On ajoute la valeur val dans notre pile*/
-void empilerPile(Pile *p, Node* val){	
+void empilerPileNode(PileNode *p, Node* val){	
 
-	Cell *new_c = malloc(sizeof(Cell));
+	CellNode *new_c = malloc(sizeof(CellNode));
     	if (p == NULL || new_c == NULL){
   	}
 	else{
@@ -53,9 +53,9 @@ void empilerPile(Pile *p, Node* val){
 }
 
 /*On retire le sommet*/
-Node* depilerPile(Pile *p){
+Node* depilerPileNode(PileNode *p){
 
-	Cell *elem = p->first;
+	CellNode *elem = p->first;
 	Node* r;
 
 	if (p != NULL && p->first != NULL){
@@ -69,16 +69,16 @@ Node* depilerPile(Pile *p){
 }
 
 /*Retourne la valeur du sommet de la pile*/
-Cell* sommet(Pile *p){
+CellNode* sommetNode(PileNode *p){
 
-	Cell *elem = p->first;
+	CellNode *elem = p->first;
 
 	return elem;
 	
 }
 
 /*Retour 0 ou 1 selon si la pile est vide ou non*/
-int pileEstVide(Pile *p){
+int pileNodeEstVide(PileNode *p){
 	int i = 1;
 	if(p != NULL && p->first != NULL){
 		i = 0;
@@ -87,24 +87,24 @@ int pileEstVide(Pile *p){
 }
 
 /*Vide complétement la pile*/
-void viderPile(Pile *p){
+void viderPileNode(PileNode *p){
 
 	while(p->first != NULL){
-		depilerPile(p);
+		depilerPileNode(p);
 	}
 
 }
 
-void DeplacementPile(Pile *p1, Pile *p2){
+void DeplacementPileNode(PileNode *p1, PileNode *p2){
 	if(p1 != NULL){
-		viderPile(p1);
+		viderPileNode(p1);
 		free(p1);
 	}
-	p1=creerPile();
+	p1=creerPileNode();
 	
-	while(p2 != NULL && sommet(p2) != NULL){
-		empilerPile(p1, sommet(p2)->value);
-		depilerPile(p2);
+	while(p2 != NULL && sommetNode(p2) != NULL){
+		empilerPileNode(p1, sommetNode(p2)->value);
+		depilerPileNode(p2);
 	}
 }
 

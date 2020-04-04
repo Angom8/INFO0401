@@ -342,7 +342,8 @@ int main(){
 					do{
 						printf("\nChoisir une action sur la liste binaire : \n");
 						printf("1.Incrementer de 1 \n");
-						printf("2.Afficher la liste\n");
+						printf("2.Incrementer de n \n");
+						printf("3.Afficher la liste\n");
 						printf("Autre.Sortir \n");
 						
 						scanf("%d", &numeroAction);
@@ -350,15 +351,23 @@ int main(){
 							case 1:
 								incrementationListeB(l);
 								break;
-							
+								
 							case 2:
+								printf("Saisir n :\n");
+								scanf("%d", &n);
+								for(i=0;i<n;i++){
+									incrementationListeB(l);
+								}
+								break;
+							
+							case 3:
 								afficherListe(l);
 								break;
 								
 							default:
 								break;
 						}
-					}while(numeroAction >= 1 && numeroAction <=2);
+					}while(numeroAction >= 1 && numeroAction <=3);
 					
 					break;
 					
@@ -568,7 +577,7 @@ int main(){
 						printf("1.Ajouter un element en largeur \n");
 						printf("2.Afficher en largeur \n");
 						printf("3.Afficher Prefixe \n");
-						printf("4.Afficher Infixe \n");
+						printf("4.Afficher Infine \n");
 						printf("5.Afficher Postfixe \n");
 						printf("6.Calculer la hauteur \n");
 						printf("7.Est équilibré ? \n");
@@ -596,7 +605,7 @@ int main(){
 								break;
 								
 							case 4:
-								afficherInfixe(a->root);
+								afficherInfine(a->root);
 								break;
 							
 							case 5:

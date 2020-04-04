@@ -101,9 +101,11 @@ void ajouterDernierElementListe(Liste *l, int val){
 /*On ajoute la valeur val à la place n de notre liste*/
 void ajouterElementListe(Liste *l, int val, int n){	
 
-	Cell *new_c = malloc(sizeof(*new_c));
+	Cell *new_c = malloc(sizeof(Cell));
 	Cell *tmp;
 	int j;
+	
+	if(n < 0){n*=-1;}
 
     	if (l == NULL || new_c == NULL){
   	}
@@ -113,7 +115,7 @@ void ajouterElementListe(Liste *l, int val, int n){
 			if(n<l->size && n>0){
 				//On définit la nouvelle case
 			    	new_c->value = val;
-			    	new_c->nxt = chercherElementListe(l, n+1);
+			    	new_c->nxt = chercherElementListe(l, n);
 
 				//On redéfinit la case n-1
 				tmp = chercherElementListe(l, n-1);
@@ -393,36 +395,40 @@ int main(){
 
 	Liste *l = creerListe();
 	Cell *e;	
-
+	
+	printf("Ajoute fin liste v=5 : \n");
 	ajouterDernierElementListe(l, 5);
 	afficherListe(l);
+	printf("Ajoute fin liste v=10 : \n");
 	ajouterDernierElementListe(l, 10);
 	afficherListe(l);
-	ajouterElementListe(l, 20, 3);
-
+	printf("Ajoute milieu de la liste v=20 : \n");
+	ajouterElementListe(l, 20, 1);
+	afficherListe(l);
+	
+	printf("Chercher l'element v=10 : \n");
 	e = chercherElementListe(l, 10);
 	if(e != NULL){printf("Trouvé !\n");}
 	e = chercherElementListe(l, 15);
+	printf("Chercher l'element v=15 : \n");
 	if(e != NULL){printf("Non Trouvé !\n");}
 	
-	afficherListe(l);
-	printf("%d\n", listeEstVide(l));
+	
+	printf("Liste est vide ? %d\n", listeEstVide(l));
 
-	ajouterDernierElementListe(l, 7);
-	afficherListe(l);
-
+	printf("Supprimer element v=5 : \n");
 	supprimerValeurListe(l, 5);
 	afficherListe(l);
 
+	printf("Trier la liste : \n");
 	trierListe(l);
 	afficherListe(l);
 	
-	supprimerElementListe(l, 1);
-	afficherListe(l);
-
+	printf("Supprimer le dernier element : \n");
 	supprimerDernierElementListe(l);
 	afficherListe(l);
 
+	printf("Vider la liste : \n");
 	viderListe(l);
 	afficherListe(l);
 
