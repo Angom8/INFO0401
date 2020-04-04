@@ -15,6 +15,8 @@
 #include "Algo/copie_tableau.c"
 #include "Algo/inversion_tableau.c"
 #include "Algo/supprimer_occurence.c"
+#include "Algo/tri_bulle.c"
+#include "Algo/tri_selec.c"
 
 //Algorithmes de Probabilité
 #include "Algo/simulation_tennis.c"
@@ -125,6 +127,8 @@ int main(){
 			printf("3.Inverser les éléments d'un tableau \n");
 			printf("4.Vérifier un palindrome \n");
 			printf("5.Copier un tableau d'entier \n");
+			printf("6.Tri à bulle \n");
+			printf("7.Tri par sélection \n");
 			printf("Autre.Sortir \n");
 			
 			scanf("%d", &numeroAlgo);
@@ -149,7 +153,14 @@ int main(){
 				case 5:
 					copie_tableau();
 					break;
-				
+									
+				case 6:
+					tri_bulle();
+					break;
+					
+				case 7:
+					tri_selec();
+					break;
 				default:
 					break;
 			}
