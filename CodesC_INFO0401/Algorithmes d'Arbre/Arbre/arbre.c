@@ -243,26 +243,33 @@ int affichageLargeur(Arbre *a){
 	PileNode *p1 = creerPileNode();
 	PileNode *p2 = creerPileNode();
 	Node * tmp;
-	int i, sep, hroot = 0, h = calculHauteur(a->root);
+	int i, sep, H, w, h_tmp, h = calculHauteur(a->root);
+	w=0;
+	H=h;
+	h_tmp=h;
 	h++;
-	sep = h+1;
-	h =8*h;
-	if(sep%2 != 0){sep++;hroot++;}
+	sep = 2*h-1;
+	h =h*h;
 	//prendre racine
 	if(a != NULL && a->root != NULL){
 		empilerPileNode(p1, a->root);
-		for(i=0;i<(h+hroot);i++){printf(" ");}
+		for(i=0;i<(h);i++){printf(" ");}
 		printf("%d", a->root->value);
 		printf("\n");
 		while(p1->first != NULL){
-			h-=2;
-			sep--;
-			for(i=0;i<(h-1);i++){printf(" ");}
+			h_tmp--;
+			if(h_tmp < 1){
+				w+=1;
+			}else{
+				w+=H;
+			}
+			sep-=2;
+			for(i=0;i<(h-sep-w);i++){printf(" ");}
 			//depiler et stocker nouveaux fils dans une pile
 			while(p1->first != NULL){
 
 				tmp = sommetNode(p1)->value->lft;
-				printf(" ");
+				for(i=0;i<sep;i++){printf(" ");}
 				if(tmp != NULL){
 					empilerPileNode(p2, sommetNode(p1)->value->lft);
 					printf("%d", sommetNode(p2)->value->value);
@@ -283,7 +290,6 @@ int affichageLargeur(Arbre *a){
 
 				depilerPileNode(p1);
 			}
-			sep--;
 			printf("\n");
 			//répéter tant que pile pas vide au départ (= pas de fils). Stockage des null, donc arret quand un parcours de pile = que des null
 			DeplacementPileNode(p1,p2);
@@ -441,8 +447,8 @@ int main(){
 		ajoutLargeur(a, i);
 	}
 	
-	printf("Ajout logique v=%d \n",i);
-	ajoutLogiqueArbre(a->root,70);
+	//printf("Ajout logique v=%d \n",i);
+	//ajoutLogiqueArbre(a->root,70);
 	
 	printf("Affichage Prefixe :\n");
 	afficherPrefixe(a->root);

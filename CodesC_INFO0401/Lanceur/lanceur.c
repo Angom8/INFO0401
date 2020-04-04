@@ -597,19 +597,26 @@ int main(){
 								break;
 								
 							case 2:
+								printf("Affichage en largeur : \n");
 								affichageLargeur(a);
 								break;
 								
 							case 3:
+								printf("Affichage Prefixe : \n");
 								afficherPrefixe(a->root);
+								printf("\n");
 								break;
 								
 							case 4:
+								printf("Affichage Infine : \n");
 								afficherInfine(a->root);
+								printf("\n");
 								break;
 							
 							case 5:
+								printf("Affichage Postfixe : \n");
 								afficherPostfixe(a->root);
+								printf("\n");
 								break;
 								
 							case 6:
